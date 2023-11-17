@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExampleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::get('user3/{name}/{age?}', function ($name , $age=0){
 
 
 //TASK2
+/*
 Route::get('contact us', function (){
     return'hello you can contact us on number 11900 or <br> facebook <br> instegram <br> email'; 
 });
@@ -98,4 +100,31 @@ Route::prefix('Training')->group(function(){
     Route::get('logistics' , function(){
         return 'logestics course';
     });  
-});       
+});  
+*/
+
+// Route::fallback(function(){
+    // return redirect('/');
+    //});
+
+   // Route::get('cv' , function(){
+       // return view('cv');
+  //  });
+
+ // Route::get('login' , function(){
+       // return view('login');
+    //});
+
+    Route::post('receive' , function(){
+        return 'Data received';
+    })->name('receive');
+
+
+    //Route::get('test1' ,[ExampleController::class, 'test']);
+
+    Route::get('addCar' , function(){
+        return view('addCar');
+    });
+
+  
+
