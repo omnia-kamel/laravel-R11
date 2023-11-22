@@ -32,19 +32,17 @@ class addnewcontroller extends Controller
         $new->title = $request->title;
         $new->author=$request->author;
         $new->content=$request->content;
-        $pub=$request->published;
-        if($pub){
-            $new->published=1;
-        }
-        else{
+        if(isset($_request["published"])){
+         $new->published=1;
+        }else{
             $new->published=0;
         }
         
         $new->save();
         return 'Added Successfully';
 
-
     }
+    
 
     /**
      * Display the specified resource.
