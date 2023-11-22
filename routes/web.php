@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\CarController;
-use App\Http\Controllers\addnewcontroller;
-
+use App\Http\Controllers\CarsController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,124 +20,83 @@ use App\Http\Controllers\addnewcontroller;
 Route::get('/', function () {
     return view('welcome');
 });
-/*
-Route::get('test', function (){
-    return'welcome to my first route';
+
+//Route::get('about', function () {
+//    return 'About page';
+//});
+//
+//Route::get('contact-us', function () {
+//    return 'Contact US page';
+//});
+//
+//Route::prefix('support')->group(function () {
+//   Route::get('/', function () {
+//       return 'Support Home page';
+//   });
+//
+//   Route::get('chat', function () {
+//      return 'Chat page';
+//   });
+//
+//    Route::get('call', function () {
+//        return 'Call page';
+//    });
+//
+//    Route::get('ticket', function () {
+//        return 'Ticket page';
+//    });
+//});
+//
+//Route::prefix('training')->group(function () {
+//    Route::get('/', function () {
+//        return 'Training Home page';
+//    });
+//
+//    Route::get('ict', function () {
+//        return 'ICT page';
+//    });
+//
+//    Route::get('hr', function () {
+//        return 'HR page';
+//    });
+//
+//    Route::get('marketing', function () {
+//        return 'Marketing page';
+//    });
+//
+//    Route::get('logistics', function () {
+//        return 'Logistics page';
+//    });
+//});
+
+//Route::fallback(function () {
+//   return redirect('/');
+//});
+
+
+Route::get('cv', function () {
+   return view('cv');
 });
 
-Route::get('user/{name}/{age?}', function ($name , $age=0){
-    $msg = 'your name is : ' . $name ;
-    if($age > 0){
-    $msg .= ' ,and your age is: '. $age ;
-    }
-    return $msg;
-
-})->whereNumber('age');
-
-Route::get('user2/{name}/{age?}', function ($name , $age=0){
-    return'your name is: ' . $name  . ' , and your age is: '. $age ;
-})->where(['age'=>'[0-9]+' , 'name'=>'[a-zA-Z-0-9]+']) ; 
-
-Route::get('user3/{name}/{age?}', function ($name , $age=0){
-    $msg = 'your name is : ' . $name ;
-    if($age > 0){
-    $msg .= ' ,and your age is: '. $age ;
-    }
-    return $msg;
-})->whereIn('name' , ['Omnia' , 'Amany' ]);
-*/
-
-
-//TASK2
-/*
-Route::get('contact us', function (){
-    return'hello you can contact us on number 11900 or <br> facebook <br> instegram <br> email'; 
+Route::get('login', function () {
+    return view('login');
 });
 
+Route::post('receive', function () {
+    return "data received";
+})->name('receive');
 
-Route::get('About', function (){
-    return'welcome to our page <br> we seek to share knowledge around the world and provide the best educational service'; 
-});
+Route::get('test', [ExampleController::class, 'test']);
 
-Route::prefix('support')->group(function(){
+//Route::get('add-car', [CarController::class, 'add_car']);
+//Route::post('car-added', [CarController::class, 'added'])->name('car-added');
+//
+//Route::get('car-added', fn() => redirect('add-car'));
 
-    Route::get('/' , function(){
-        return 'support home page';
-    });
+Route::get('add-car', [CarsController::class, 'create']);
+Route::post('car-added', [CarsController::class, 'store'])->name('car-added');
+Route::get('car-index', [CarsController::class, 'index']);
 
-    Route::get('chat/{name?} ' , function($name =0){
-        if($name==0){
-            return 'welcome to chat service';
-        }else{
-            return 'Hello ' . $name  . ' welcome to chat service ';
-        }
-    });
-
-    Route::get('call' , function(){
-        return 'call us on 11900';
-    });
-
-    Route::get('Ticket' , function(){
-        return 'Ticket page';
-    });  
-});   
-
-Route::prefix('Training')->group(function(){
-
-    Route::get('/' , function(){
-        return 'Training home page';
-    });
-
-    Route::get('HR' , function(){
-        return 'HR coure';
-    });
-
-    Route::get('ICT' , function(){
-        return 'ICT course';
-    });
-
-    Route::get('marketing' , function(){
-        return 'marketing course';
-    });  
-
-    Route::get('logistics' , function(){
-        return 'logestics course';
-    });  
-});  
-*/
-
-// Route::fallback(function(){
-    // return redirect('/');
-    //});
-
-   // Route::get('cv' , function(){
-       // return view('cv');
-  //  });
-
- // Route::get('login' , function(){
-       // return view('login');
-    //});
-
-    Route::post('receive' , function(){
-        return 'Data received';
-    })->name('receive');
-
-
-    //Route::get('test1' ,[ExampleController::class, 'test']);
-
-  // Route::get('addCar' , function(){
-      //  return view('addCar');
-  // });
-
-  // Route::post('addCar' ,[carController::class, 'store']);
-
-    Route::get('addnews', [addnewController::class,'store']);
-
-    Route::get('addNews' , function(){
-        return view('addNews');
-   });
-
-
-
-  
+Route::get('create-news', [NewsController::class, 'create']);
+Route::post('store-news', [NewsController::class, 'store'])->name('store-news');
 

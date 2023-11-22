@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\ModelS\addnew;
-
-class addnewcontroller extends Controller
+use App\Models\Car;
+class CarsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $cars = Car::get();
+
+        return view('cars', compact('cars'));
     }
 
     /**
@@ -21,6 +22,7 @@ class addnewcontroller extends Controller
     public function create()
     {
         //
+        return view('addCar');
     }
 
     /**
@@ -28,21 +30,17 @@ class addnewcontroller extends Controller
      */
     public function store(Request $request)
     {
-        $new = new Addnew();
-        $new->title = $request->title;
-        $new->author=$request->author;
-        $new->content=$request->content;
-        if(isset($_request["published"])){
-         $new->published=1;
-        }else{
-            $new->published=0;
-        }
-        
-        $new->save();
-        return 'Added Successfully';
+        $car = new Car();
 
+        $car->title = $request->title;
+        $car->description = $request->description;
+        $car->published = (isset($request->published))? true: false;
+        $car->price = $request->price;
+
+        $car->save();
+
+        return 'Car added successfully';
     }
-    
 
     /**
      * Display the specified resource.

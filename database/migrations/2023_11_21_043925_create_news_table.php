@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('addnew', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->id();
+            $table->string(column: 'newsTitle', length: 100);
+            $table->text(column: 'newsContent');
+            $table->boolean(column: 'newsPublished');
+            $table->string(column: 'newsAuthor', length: 50);
             $table->timestamps();
-            $table->string('title',100);
-            $table->string('author',100);
-            $table->text('content',1000);
-            $table->boolean('published');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('addnew');
+        Schema::dropIfExists('news');
     }
 };
