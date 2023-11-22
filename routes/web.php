@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\addnewcontroller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -122,9 +125,19 @@ Route::prefix('Training')->group(function(){
 
     //Route::get('test1' ,[ExampleController::class, 'test']);
 
-    Route::get('addCar' , function(){
-        return view('addCar');
-    });
+  // Route::get('addCar' , function(){
+      //  return view('addCar');
+  // });
+
+  // Route::post('addCar' ,[carController::class, 'store']);
+
+    Route::get('addnews', [addnewController::class,'store']);
+
+    Route::get('addNews' , function(){
+        return view('addNews');
+   });
+
+
 
   
 
