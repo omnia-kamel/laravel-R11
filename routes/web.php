@@ -93,15 +93,20 @@ Route::get('test', [ExampleController::class, 'test']);
 //
 //Route::get('car-added', fn() => redirect('add-car'));
 
+//Car Info
 Route::get('add-car', [CarsController::class, 'create']);
 Route::post('car-added', [CarsController::class, 'store'])->name('car-added');
 Route::get('car-index', [CarsController::class, 'index']);
 Route::get('edit-car/{id}', [CarsController::class, 'edit']);
+Route::get('show-car/{id}', [CarsController::class, 'show'])->name('show-car');
 Route::put('update-car/{id}', [CarsController::class, 'update'])->name('update-car');
+Route::get('delete-car/{id}', [CarsController::class, 'destroy']);
 
-
+//News Info
 Route::get('create-news', [NewsController::class, 'create']);
 Route::post('store-news', [NewsController::class, 'store'])->name('store-news');
 Route::get('edit-news/{id}', [NewsController::class, 'edit']);
+Route::get('show-news/{id}', [NewsController::class, 'show'])->name('show-news');
 Route::put('update-news/{id}', [NewsController::class, 'update'])->name('update-news');
 Route::get('news-index', [NewsController::class, 'index']);
+Route::get('delete-news/{id}', [NewsController::class, 'destroy']);

@@ -21,6 +21,8 @@
             <th>Published</th>
             <th>Author</th>
             <th>Edit</th>
+            <th>Show</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -30,13 +32,15 @@
                 <td>{{$article->newsContent}}</td>
                 <td>
                     @if($article->newsPublished)
-                        Yes
+                        Yes🟢
                     @else
-                        No
+                        No🔴
                     @endif
                 </td>
                 <td>{{$article->newsAuthor}}</td>
                 <td><a href="edit-news/{{$article->id}}">Edit</a></td>
+                <td><a href="show-news/{{$article->id}}">👁‍🗨Show</a></td>
+                <td><a href="delete-news/{{$article->id}}">Delete⛔</a></td>
             </tr>
         @endforeach
 
