@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\News;
 class NewsController extends Controller
@@ -29,14 +29,23 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+        /*
         $news = new News();
-
         $news->newsTitle = $request->newsTitle;
         $news->newsContent = $request->newsContent;
         $news->newsPublished = (isset($request->newsPublished))? true : false;
         $news->newsAuthor = $request->newsAuthor; 
-
         $news->save(); 
+        */
+          
+        $data = $request->only($this->columns);
+        $data['newsPublished'] = isset($data['newsPublished'])? true : false;
+        $request->validate([
+            'newsTitle'=>'required|string|max:50',
+            'newsContent'=>'required|string|max:200',
+            'newsAuthor'=>'required|string|max:30'
+        ]);
+          News::create($data);
 
         return 'News is added successfully'; 
     }
@@ -76,10 +85,36 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id):RedirectResponse
     {
         News::where('id' , $id)->delete();
+        return redirect('trashed-news');
+    }
+      
+    /**
+     * Specified resource deleted from index .
+     */
+    public function trashed(){
 
-        return 'News Deleted';
+        $news = News::onlyTrashed()->get();
+        return view('trashedNews', compact('news'));    
+    }
+
+ /**
+     * Restore Specified resource from trashed .
+     */
+    public function restore(string $id): RedirectResponse
+    {
+        news::where('id' , $id)->restore();
+        return redirect('news-index');
+    }
+
+/**
+     * Remove the specified resource from storage and trash.
+     */
+    public function forcedelete(string $id): RedirectResponse
+    {
+        news::where('id' , $id)->forcedelete();
+        return redirect('news-index');
     }
 }

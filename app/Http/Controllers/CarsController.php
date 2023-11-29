@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Car;
 class CarsController extends Controller
 {
@@ -31,15 +32,23 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
+     /*
         $car = new Car();
-
         $car->title = $request->title;
         $car->description = $request->description;
         $car->published = (isset($request->published))? true: false;
         $car->price = $request->price;
 
         $car->save();
-
+        */
+        $data = $request->only($this->columns);
+        $data['published'] = isset($data['published'])? true : false;
+        $request->validate([
+            'title'=>'required|string|max:50',
+            'description'=>'required|string|max:100',
+            'price'=>'required|string'
+        ]);
+            Car::create($data);
         return 'Car added successfully';
     }
 
@@ -85,10 +94,31 @@ class CarsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         car::where('id' , $id)->delete();
 
-        return 'car deleted';
+        return  redirect('car-index');
     }
+
+    public function trashed(){
+
+        $cars = Car::onlyTrashed()->get();
+        return view('trashedCar', compact('cars'));    
+    }
+
+    public function restore(string $id): RedirectResponse
+    {
+        car::where('id' , $id)->restore();
+
+        return  redirect('car-index');
+    }
+
+    public function forcedelete(string $id): RedirectResponse
+    {
+        car::where('id' , $id)->forcedelete();
+
+        return  redirect('trashed-car');
+    }
+
 }

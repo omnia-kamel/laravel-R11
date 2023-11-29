@@ -100,7 +100,10 @@ Route::get('car-index', [CarsController::class, 'index']);
 Route::get('edit-car/{id}', [CarsController::class, 'edit']);
 Route::get('show-car/{id}', [CarsController::class, 'show'])->name('show-car');
 Route::put('update-car/{id}', [CarsController::class, 'update'])->name('update-car');
-Route::get('delete-car/{id}', [CarsController::class, 'destroy']);
+Route::get('softDelete-car/{id}', [CarsController::class, 'destroy']);
+Route::get('trashed-car', [CarsController::class, 'trashed']);
+Route::get('restore-car/{id}', [CarsController::class, 'restore']);
+Route::get('forcedelete-car/{id}', [CarsController::class, 'forcedelete']);
 
 //News Info
 Route::get('create-news', [NewsController::class, 'create']);
@@ -109,4 +112,7 @@ Route::get('edit-news/{id}', [NewsController::class, 'edit']);
 Route::get('show-news/{id}', [NewsController::class, 'show'])->name('show-news');
 Route::put('update-news/{id}', [NewsController::class, 'update'])->name('update-news');
 Route::get('news-index', [NewsController::class, 'index']);
-Route::get('delete-news/{id}', [NewsController::class, 'destroy']);
+Route::get('softdelete-news/{id}', [NewsController::class, 'destroy']);
+Route::get('trashed-news', [NewsController::class, 'trashed']);
+Route::get('restore-news/{id}', [NewsController::class, 'restore']);
+Route::get('forcedelete-news/{id}', [NewsController::class, 'forcedelete']);

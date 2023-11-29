@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Trashed List</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,7 +11,7 @@
 <body>
 
 <div class="container">
-    <h2>All News</h2>
+    <h2>Trashed News</h2>
     <p>The .table-hover class enables a hover state on table rows:</p>
     <table class="table table-hover">
         <thead>
@@ -20,8 +20,7 @@
             <th>Content</th>
             <th>Published</th>
             <th>Author</th>
-            <th>Edit</th>
-            <th>Show</th>
+            <th>Restore</th>
             <th>Delete</th>
         </tr>
         </thead>
@@ -38,9 +37,8 @@
                     @endif
                 </td>
                 <td>{{$article->newsAuthor}}</td>
-                <td><a href="edit-news/{{$article->id}}">Edit</a></td>
-                <td><a href="show-news/{{$article->id}}">👁‍🗨Show</a></td>
-                <td><a href="softdelete-news/{{$article->id}}">Delete⛔</a></td>
+                <td><a href="restore-news/{{$article->id}}">Restore</a></td>
+                <td><a href="forcedelete-news/{{$article->id}}">Delete⛔</a></td>
             </tr>
         @endforeach
 
