@@ -12,7 +12,7 @@
 
 <div class="container">
     <h2>Edit Car</h2>
-    <form action="{{route('update-car', $car->id)}}" method="post">
+    <form action="{{route('update-car', $car->id)}}" method="post" enctype= "multipart/form-data">
         @csrf
         @method('put')
 
@@ -29,11 +29,15 @@
             <textarea class="form-control" rows="5" id="description" name="description">{{$car->description}}</textarea>
         </div>
         <div class="checkbox">
-            <label><input type="checkbox" name="published"  @checked($car->published)> Published</label>
+            <label><input type="checkbox" name="published"  @checked($car->published)>Published</label>
+        </div>
+        <div class="form-group">
+            <label for="image">Image</label>
+				<input type="hidden" name="oldImage" value="{{$car->image}}">
+            <input type="file" class="form-control" id="image" name="image">
         </div>
         <button type="submit" class="btn btn-default">Update</button>
     </form>
 </div>
-
 </body>
 </html>

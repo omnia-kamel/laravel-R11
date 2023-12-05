@@ -25,6 +25,9 @@
     <div class="alert alert-info">
         <strong>Published</strong> {{$published}}
     </div>
+    <div class="alert alert-info">
+        <strong>Image:</strong> {{$image}}
+    </div>
 
 </div>
 

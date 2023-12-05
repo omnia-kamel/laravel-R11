@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Traits\Common;
 class NewsController extends Controller
 {
+    use Common;
+
     private $columns = ['newsTitle' , 'newsContent' , 'newsPublished' ,'newsAuthor'];
     /**
      * Display a listing of the resource.
@@ -38,13 +41,25 @@ class NewsController extends Controller
         $news->save(); 
         */
           
-        $data = $request->only($this->columns);
-        $data['newsPublished'] = isset($data['newsPublished'])? true : false;
-        $request->validate([
+        //$data = $request->only($this->columns);
+        //$data['newsPublished'] = isset($data['newsPublished'])? true : false;
+        $messages=[
+            'newsTitle.required'=>'This failed is required',
+            'newsContent.required'=>'please write a content',
+            'newsAuthor.required'=>'Who is the author',
+        ];
+
+        
+        $data = $request->validate([
             'newsTitle'=>'required|string|max:50',
             'newsContent'=>'required|string|max:200',
-            'newsAuthor'=>'required|string|max:30'
-        ]);
+            'newsAuthor'=>'required|string|max:30',
+            'newsImage' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ], $messages);
+
+        $fileName = $this->uploadFile($request->image, 'assets/images');
+        $data ['newsImage']= $fileName;
+        $data['newsPublished'] = isset($request['newsPublished']);
           News::create($data);
 
         return 'News is added successfully'; 

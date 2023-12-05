@@ -116,3 +116,7 @@ Route::get('softdelete-news/{id}', [NewsController::class, 'destroy']);
 Route::get('trashed-news', [NewsController::class, 'trashed']);
 Route::get('restore-news/{id}', [NewsController::class, 'restore']);
 Route::get('forcedelete-news/{id}', [NewsController::class, 'forcedelete']);
+
+
+Route::get('showUpload', [ExampleController::class, 'showUpload']);
+Route::post('upload', [ExampleController::class, 'upload'])->name('upload');

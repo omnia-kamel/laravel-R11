@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Car;
+use App\Traits\Common;
+
 class CarsController extends Controller
 {
-    private $columns = ['title' , 'description' , 'published' ,'price'];
+    use Common;
+
+    private $columns = ['title' , 'description' , 'published' ,'price' , 'image'];
     /**
      * Display a listing of the resource.
      */
@@ -41,13 +45,22 @@ class CarsController extends Controller
 
         $car->save();
         */
-        $data = $request->only($this->columns);
-        $data['published'] = isset($data['published'])? true : false;
-        $request->validate([
+       // $data = $request->only($this->columns);
+        //$data['published'] = isset($data['published'])? true : false;
+        $messages=[
+            'title.required'=>'لم يتم ادخال العنوان',
+            'description.required'=>'يرجي ادخال الوصف',
+        ];
+        $data = $request->validate([
             'title'=>'required|string|max:50',
             'description'=>'required|string|max:100',
-            'price'=>'required|string'
-        ]);
+            'price'=>'required|string',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ], $messages);
+
+        $fileName = $this->uploadFile($request->image, 'assets/images');
+        $data ['image']= $fileName;
+        $data['published'] = isset($request['published']);
             Car::create($data);
         return 'Car added successfully';
     }
@@ -80,12 +93,24 @@ class CarsController extends Controller
     {
       
     
-            $data = $request->only($this->columns);
-            $data['published'] = isset($data['published'])? true:false;
-    
-            Car::where('id', $id)->update($data);
-         // Car::where('id', $id)->update($request->only($this->columns));
-            return ('updated successfully');
+            //$data = $request->only($this->columns);
+            //$data['published'] = isset($data['published'])? true:false;
+            // Car::where('id', $id)->update($data);
+           // Car::where('id', $id)->update($request->only($this->columns));
+         $data = $request->validate([
+            'title'      =>'required|string|max:50',
+            'description'=>'required|string|max:100',
+            'price'      =>'required|string',
+        ]);
+        $request->validate([
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ]);
+        $fileName = $this->uploadFile($request->image, 'assets/images');
+        $data ['image']= $fileName;
+        $data['published'] = isset($request['published']);
+
+
+         return ('updated successfully');
             return redirect('car-index');
     
         

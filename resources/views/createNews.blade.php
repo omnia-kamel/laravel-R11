@@ -12,7 +12,7 @@
 
 <div class="container">
     <h2>Add News</h2>
-    <form action="{{route('store-news')}}" method="post">
+    <form action="{{route('store-news')}}" method="post" enctype= "multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="title">Title:</label>
@@ -46,6 +46,13 @@
 
         <div class="checkbox">
             <label><input type="checkbox" name="newsPublished"> Published</label>
+        </div>
+        <div class="form-group">
+            <label for="image">Image:</label>
+            <input type="file" class="form-control" id="image" name="image" value="{{ old('image') }}">
+            @error('image')
+                {{ $message }}
+            @enderror
         </div>
         <button type="submit" class="btn btn-default">Add</button>
     </form>
