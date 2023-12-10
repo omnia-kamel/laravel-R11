@@ -5,6 +5,7 @@ use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\CarsController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PlacesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,3 +121,14 @@ Route::get('forcedelete-news/{id}', [NewsController::class, 'forcedelete']);
 
 Route::get('showUpload', [ExampleController::class, 'showUpload']);
 Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
+
+
+//Route::get('login',[ExampleController::class, 'login']);
+//Route::get('place',[ExampleController::class, 'place']);
+//Route::get('blog',[ExampleController::class, 'blog']);
+//Route::get('blog1',[ExampleController::class, 'blog1']);
+
+
+Route::get('place-index',[PlacesController::class, 'index']);
+Route::get('create-place',[PlacesController::class, 'create']);
+Route::post('store-place',[PlacesController::class, 'store'])->name('storePlace');

@@ -32,9 +32,12 @@
             <label><input type="checkbox" name="published"  @checked($car->published)>Published</label>
         </div>
         <div class="form-group">
-            <label for="image">Image</label>
-				<input type="hidden" name="oldImage" value="{{$car->image}}">
-            <input type="file" class="form-control" id="image" name="image">
+            <label for="image">Image:</label>
+            <input type="file" class="form-control" id="image" name="image" value="{{ old('image') }}">
+            <img src="{{ asset('assets/images/'.$car->image) }}" alt="cars" style="width:150px;">
+            @error('image')
+                {{ $message }}
+            @enderror
         </div>
         <button type="submit" class="btn btn-default">Update</button>
     </form>

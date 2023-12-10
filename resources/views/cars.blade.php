@@ -38,7 +38,6 @@
                     @endif
                 </td>
                 <td>{{$car->price}}</td>
-                <td>{{$car->image:}}</td>
                 <td><a href="edit-car/{{$car->id}}">Edit</a></td>
                 <td><a href="show-car/{{$car->id}}">Show👁</a></td>
                 <td><a href="softDelete-car/{{$car->id}}">Delete⛔</a></td>

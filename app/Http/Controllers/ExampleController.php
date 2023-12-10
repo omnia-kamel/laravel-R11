@@ -14,6 +14,20 @@ class ExampleController extends Controller
 
     public function showUpload() {
         return view('upload');
+    
+    }
+
+    public function place(){
+        return view('place');
+    }
+
+    
+    public function blog(){
+        return view('blog');
+    }
+
+    public function blog1(){
+        return view('blog1');
     }
 
     public function upload(Request $request){

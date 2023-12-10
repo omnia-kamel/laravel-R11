@@ -97,21 +97,24 @@ class CarsController extends Controller
             //$data['published'] = isset($data['published'])? true:false;
             // Car::where('id', $id)->update($data);
            // Car::where('id', $id)->update($request->only($this->columns));
+           $messages= $this->messages();
          $data = $request->validate([
             'title'      =>'required|string|max:50',
             'description'=>'required|string|max:100',
             'price'      =>'required|string',
-        ]);
-        $request->validate([
-            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
-        ]);
-        $fileName = $this->uploadFile($request->image, 'assets/images');
-        $data ['image']= $fileName;
+            'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
+        ],$messages );
         $data['published'] = isset($request['published']);
+        
+       // update image if new file selected
+          if($request->hasFile('image')){
+          $fileName = $this->uploadFile($request->image, 'assets/images');
+         $data['image']= $fileName;
+           }
 
-
-         return ('updated successfully');
-            return redirect('car-index');
+          //return dd($data);
+          Car::where('id', $id)->update($data);
+          return 'Updated';
     
         
     }
@@ -144,6 +147,13 @@ class CarsController extends Controller
         car::where('id' , $id)->forcedelete();
 
         return  redirect('trashed-car');
+    }
+
+    public function messages(){
+        return [
+            'title.required'=>'لم يتم ادخال العنوان',
+            'description.required'=>'يرجي ادخال الوصف',
+        ];
     }
 
 }
