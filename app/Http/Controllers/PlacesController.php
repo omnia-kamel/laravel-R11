@@ -17,7 +17,7 @@ class Placescontroller extends Controller
     public function index()
     {
         $places = Place::latest()->limit(6)->get();
-        return view('place', compact('places'));
+        return view('places', compact('places'));
     }
 
     /**
@@ -76,8 +76,30 @@ class Placescontroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        place::where('id' , $id)->delete();
+
+        return  redirect('trashed-places');
+    }
+
+    public function trashed(){
+
+        $places = Place::onlyTrashed()->get();
+        return view('trashedPlaces', compact('places'));    
+    }
+
+    public function restore(string $id): RedirectResponse
+    {
+        Place::where('id' , $id)->restore();
+
+        return  redirect('place-index');
+    }
+
+    public function forcedelete(string $id): RedirectResponse
+    {
+        Place::where('id' , $id)->forcedelete();
+
+        return  redirect('trashed-places');
     }
 }

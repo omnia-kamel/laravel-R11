@@ -132,3 +132,7 @@ Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
 Route::get('place-index',[PlacesController::class, 'index']);
 Route::get('add-place',[PlacesController::class, 'create']);
 Route::post('store-place',[PlacesController::class, 'store'])->name('storePlace');
+Route::get('softDelete-place/{id}',[PlacesController::class, 'destroy']);
+Route::get('trashed-places', [PlacesController::class, 'trashed']);
+Route::get('restore-place/{id}', [PlacesController::class, 'restore']);
+Route::get('forcedelete-place/{id}', [PlacesController::class, 'forcedelete']);
