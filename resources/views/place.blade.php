@@ -12,7 +12,7 @@
 @include('includes.topBar')
 
 @include('includes.welcome')
-@include('includes.listTopics')
+@include('includes.listTopic')
 
 
 

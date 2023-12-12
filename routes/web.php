@@ -119,7 +119,7 @@ Route::get('restore-news/{id}', [NewsController::class, 'restore']);
 Route::get('forcedelete-news/{id}', [NewsController::class, 'forcedelete']);
 
 
-Route::get('showUpload', [ExampleController::class, 'showUpload']);
+Route::get('show_Upload', [ExampleController::class, 'showUpload']);
 Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
 
 
@@ -130,5 +130,5 @@ Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
 
 
 Route::get('place-index',[PlacesController::class, 'index']);
-Route::get('create-place',[PlacesController::class, 'create']);
+Route::get('add-place',[PlacesController::class, 'create']);
 Route::post('store-place',[PlacesController::class, 'store'])->name('storePlace');

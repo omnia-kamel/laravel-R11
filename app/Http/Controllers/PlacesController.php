@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Place;
-use Illuminate\View\View;
+
 use App\Traits\Common;
 
 class Placescontroller extends Controller
