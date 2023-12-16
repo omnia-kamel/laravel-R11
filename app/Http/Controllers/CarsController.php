@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Car;
+use App\Models\Category;
 use App\Traits\Common;
 
 class CarsController extends Controller
@@ -27,8 +28,9 @@ class CarsController extends Controller
      */
     public function create()
     {
-        //
-        return view('addCar');
+        $categories = Category::select('id', 'category_name')->get();
+        return view('addCar', compact('categories'));
+        
     }
 
     /**
@@ -80,10 +82,11 @@ class CarsController extends Controller
     public function edit(string $id)
     {
        
-    
         $car = Car::findORFail($id);
+        $categories = Category::select('id', 'category_name')->get();
 
-        return view('editCar', compact('car'));
+        return view('editCar', compact(['car', 'categories']));
+        
     }
 
     /**
@@ -99,10 +102,11 @@ class CarsController extends Controller
            // Car::where('id', $id)->update($request->only($this->columns));
            $messages= $this->messages();
          $data = $request->validate([
-            'title'      =>'required|string|max:50',
-            'description'=>'required|string|max:100',
-            'price'      =>'required|string',
-            'image' => 'sometimes|mimes:png,jpg,jpeg|max:2048',
+            'title'       =>'required|string|max:50',
+            'description' =>'required|string|max:100',
+            'price'       =>'required|string',
+            'image'       => 'sometimes|mimes:png,jpg,jpeg|max:2048',
+            'category_id' =>'required'
         ],$messages );
         $data['published'] = isset($request['published']);
         

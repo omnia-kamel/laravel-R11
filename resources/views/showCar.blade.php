@@ -27,6 +27,12 @@
             <label for="description">Description:</label>
             <textarea class="form-control" rows="5" id="description" name="description">{{$car->description}}</textarea>
         </div>
+        <div class="row">
+                <p class="text-light bg-secondary" style="padding: 20px; border-radius:25px; text-align: center">
+                    Category: {{$car->category->category_name}}
+                </p>
+            </div>
+        </div>
         <div class="checkbox">
             <label><input type="checkbox" name="published"  @checked($car->published)> Published</label>
         </div>

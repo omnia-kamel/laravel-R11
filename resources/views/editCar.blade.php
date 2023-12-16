@@ -28,6 +28,21 @@
             <label for="description">Description:</label>
             <textarea class="form-control" rows="5" id="description" name="description">{{$car->description}}</textarea>
         </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" name="category_id">
+                @foreach($categories as $category)
+                    <option value="{{$category->id}}" @selected($category->id == $car->category_id)>{{$category->category_name}}</option>
+                @endforeach
+            </select>
+            @error('category_id')
+            <div class="alert alert-danger">
+                <strong>Error!!</strong> {{$message}}
+            </div>
+            @enderror
+        </div>
+        
         <div class="checkbox">
             <label><input type="checkbox" name="published"  @checked($car->published)>Published</label>
         </div>

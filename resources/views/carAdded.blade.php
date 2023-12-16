@@ -29,6 +29,10 @@
         <strong>Image:</strong> {{$image}}
     </div>
 
+    <div class="alert alert-info">
+        <strong>Image:</strong> {{$image}}
+    </div>
+
 </div>
 
 </body>

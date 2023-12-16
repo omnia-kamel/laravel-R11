@@ -17,11 +17,12 @@ class CarFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->company(),
-            'description' => fake()->text(),
-            'published' => 1,
-            'image' => fake()->imageUrl(800,600),
-            'price' => fake()->numberBetween($min = 6000, $max = 12000),
-        ];
+            'title'         => fake()->company(),
+            'description'   => fake()->text(),
+            'published'     => 1,
+            'image'         => fake()->imageUrl(800,600),
+            'price'         => fake()->numberBetween($min = 6000, $max = 12000),
+            'category_id'   => fake()->numberBetween(1, 10)         
+         ];
     }
 }
