@@ -82,7 +82,7 @@ class CarsController extends Controller
     public function edit(string $id)
     {
        
-        $car = Car::findORFail($id);
+           $car = Car::findORFail($id);
         $categories = Category::select('id', 'category_name')->get();
 
         return view('editCar', compact(['car', 'categories']));

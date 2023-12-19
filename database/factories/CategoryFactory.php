@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     {
         return [
             'category_name'     => fake()->unique()->randomElement([
-                'Lamborghini', 'Porsche', 'BMW', 'Lexus', 'Toyota', 'Infiniti', 'Peugeot', 'Tesla', 'Lincoln', 'Genesis', 'Jaguar', 'Land Rover', 'Ferrari', 'Maserati', 'Volvo', 'Bentley', 'Rolls-Royce'])
+                'Audi', 'Porsche', 'VW', 'Lexus', 'Acura', 'Infiniti', 'Cadillac', 'Tesla', 'Lincoln', 'Genesis', 'Jaguar', 'Land Rover', 'Ferrari', 'Maserati', 'Volvo', 'Bentley', 'Rolls-Royce'])
         ];
     }
 }

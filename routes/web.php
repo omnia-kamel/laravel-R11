@@ -6,6 +6,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\CarsController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PlacesController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,3 +137,9 @@ Route::get('softDelete-place/{id}',[PlacesController::class, 'destroy']);
 Route::get('trashed-places', [PlacesController::class, 'trashed']);
 Route::get('restore-place/{id}', [PlacesController::class, 'restore']);
 Route::get('forcedelete-place/{id}', [PlacesController::class, 'forcedelete']);
+Auth::routes(['verify'=>true]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('create-contact-us',[ContactController::class, 'create']);
+Route::post('send-message',[ContactController::class, 'send'])->name('message');
