@@ -96,8 +96,8 @@ Route::get('test', [ExampleController::class, 'test']);
 //Route::get('car-added', fn() => redirect('add-car'));
 
 //Car Info
-Route::get('add-car', [CarsController::class, 'create']);
-Route::post('car-added', [CarsController::class, 'store'])->name('car-added');
+
+
 Route::get('car-index', [CarsController::class, 'index']);
 Route::get('edit-car/{id}', [CarsController::class, 'edit']);
 Route::get('show-car/{id}', [CarsController::class, 'show'])->name('show-car');
@@ -106,6 +106,7 @@ Route::get('softDelete-car/{id}', [CarsController::class, 'destroy']);
 Route::get('trashed-car', [CarsController::class, 'trashed']);
 Route::get('restore-car/{id}', [CarsController::class, 'restore']);
 Route::get('forcedelete-car/{id}', [CarsController::class, 'forcedelete']);
+Route::get('cars', [CarsController::class, 'index'])->middleware('verified');
 
 //News Info
 Route::get('create-news', [NewsController::class, 'create']);
@@ -137,9 +138,16 @@ Route::get('softDelete-place/{id}',[PlacesController::class, 'destroy']);
 Route::get('trashed-places', [PlacesController::class, 'trashed']);
 Route::get('restore-place/{id}', [PlacesController::class, 'restore']);
 Route::get('forcedelete-place/{id}', [PlacesController::class, 'forcedelete']);
-Auth::routes(['verify'=>true]);
 
+Auth::routes(['verify'=>true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('create-contact-us',[ContactController::class, 'create']);
-Route::post('send-message',[ContactController::class, 'send'])->name('message');
+
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+], function() {
+   
+    Route::get('add-car', [CarsController::class, 'create']);
+    Route::post('car-added', [CarsController::class, 'store'])->name('car-added');
+});

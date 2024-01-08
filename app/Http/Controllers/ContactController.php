@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContacUs;
 use Illuminate\Http\Request;
-use App\Mail\Contact;
+
 class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function create()
     {
         return view('contact');
     }
@@ -25,6 +26,8 @@ class ContactController extends Controller
             'subject'   => 'required|string|max:255',
             'message'   => 'required|string'
         ]);
+        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactUs($data));
+        return 'message sent, thanks';
     }
 
     /**
